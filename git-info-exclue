@@ -1,0 +1,5 @@
+outpaths.nix
+out-paths
+results/
+# Where this repo (nixpkgs-meta) is located
+.m/
