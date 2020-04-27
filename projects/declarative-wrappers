@@ -1,0 +1,11 @@
+- https://github.com/NixOS/nixpkgs/issues/32790 :: Only related - they talk about patching some packages to use GI_GIR_PATH
+- https://github.com/NixOS/nixpkgs/pull/83321
+- https://discourse.nixos.org/t/declarative-wrappers/1775/1
+- https://github.com/NixOS/nixpkgs/pull/53816
+- https://github.com/NixOS/nixpkgs/pull/70691
+- https://github.com/NixOS/nixpkgs/pull/71089
+- https://discourse.nixos.org/t/wrapqtappshook-out-of-tree/5619/6
+- https://github.com/NixOS/nixpkgs/pull/83705
+- https://github.com/NixOS/nixpkgs/issues/78792 :: general idea regarding how to orchestrate wrap hooks
+- https://github.com/NixOS/nixpkgs/issues/83667 :: propagated-build-inputs in cross compilations
+- https://github.com/NixOS/nixpkgs/issues/85306 :: Just another unwrapped derivation living in the wild issue
