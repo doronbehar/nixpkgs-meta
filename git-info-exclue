@@ -3,3 +3,7 @@ out-paths
 results/
 # Where this repo (nixpkgs-meta) is located
 .m/
+# A symlink from here
+PR-update.sh
+# A directory where I run `nix-shell to reproduce builds`
+.builds/
