@@ -1,11 +1,39 @@
 - https://github.com/NixOS/nixpkgs/issues/32790 :: Only related - they talk about patching some packages to use GI_GIR_PATH
 - https://github.com/NixOS/nixpkgs/pull/83321
 - https://discourse.nixos.org/t/declarative-wrappers/1775/1
-- https://github.com/NixOS/nixpkgs/pull/53816
+- https://github.com/NixOS/nixpkgs/pull/53816 :: [RFC] Python library wrappers
 - https://github.com/NixOS/nixpkgs/pull/70691
 - https://github.com/NixOS/nixpkgs/pull/71089
 - https://discourse.nixos.org/t/wrapqtappshook-out-of-tree/5619/6
 - https://github.com/NixOS/nixpkgs/pull/83705
+- https://github.com/NixOS/nixpkgs/issues/87667
+- https://github.com/NixOS/nixpkgs/pull/89145 :: issue with luarocks generated luasockets vs when built with `buildLuaPackage`
+- https://github.com/NixOS/nixpkgs/issues/87883 :: gimp: No module named gtk / plugins do not work
+- https://github.com/NixOS/nixpkgs/pull/61213 :: scons: Fix a wrapping issue which overrides your PATH
+- https://github.com/NixOS/nixpkgs/pull/61553 :: cc-wrapper: add hook
+- https://github.com/NixOS/nixpkgs/pull/32552 :: makeWrapper: Use case not elif-chaining, and other cleanups
 - https://github.com/NixOS/nixpkgs/issues/78792 :: general idea regarding how to orchestrate wrap hooks
 - https://github.com/NixOS/nixpkgs/issues/83667 :: propagated-build-inputs in cross compilations
 - https://github.com/NixOS/nixpkgs/issues/85306 :: Just another unwrapped derivation living in the wild issue
+- https://github.com/NixOS/nixpkgs/pull/86166 :: an unclear fix to an issue with wrappings of stdenv tools
+- https://github.com/NixOS/nixpkgs/issues/53111 :: small issue regarding gnome apps using `gapplication launch` which may be solved nicely if wrapped
+- https://github.com/NixOS/nixpkgs/issues/86369 :: qt plugin path
+- https://github.com/NixOS/nixpkgs/issues/86054 :: qt translations not found
+- https://github.com/NixOS/nixpkgs/issues/86048 :: hplip unwrapped
+- https://github.com/NixOS/nixpkgs/issues/84308 :: gtk-doc cross references
+- https://github.com/NixOS/nixpkgs/issues/84249 :: git-remote-hg not wrapped correctly
+(unreported) kdoctools exports an XDG_DATA_DIRS file for kdeconnect
+(unreported) kconfigwidgets.dev is refernced by kdeconnect because of QT_PLUGIN_PATH
+(unreported) bin/ of gobject-introspection.dev is added to (e.g) beets
+- https://github.com/NixOS/nixpkgs/issues/87033 :: Something related to GDK_PIXBUF
+- https://github.com/NixOS/nixpkgs/issues/49132 :: GDK_PIXBUF compatibilities
+- https://github.com/NixOS/nixpkgs/issues/54278 :: GDK_PIXBUF compatibilities
+- https://github.com/NixOS/nixpkgs/issues/39493 :: no ability to wrapProgram every executable that depends on gdk-pixbuf
+- https://github.com/NixOS/nixpkgs/issues/60260 :: General complain about wrappers.
+- https://github.com/NixOS/nixpkgs/issues/87667 :: VLC and gtk path 
+
+(unreported) gnome-bluetooth pulls adwaita-icon-theme because of wrapper
+
+# NOTE
+
+consider using exportReferencesGraph or something like in replace-dependency.nix to iterate all dependencies

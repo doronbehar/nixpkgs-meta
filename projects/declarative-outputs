@@ -1,0 +1,4 @@
+https://github.com/NixOS/nixpkgs/issues/32817
+https://github.com/NixOS/nixpkgs/issues/22566 :: use jre where possible
+https://github.com/NixOS/nixpkgs/issues/43813 :: bazel closure size
+https://github.com/NixOS/nixpkgs/issues/79490 :: jre11 missing
