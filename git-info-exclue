@@ -5,5 +5,7 @@ results/
 .m/
 # A symlink from here
 PR-update.sh
+ffmpeg4-update.sh
+update-gotify.sh
 # A directory where I run `nix-shell to reproduce builds`
 .builds/

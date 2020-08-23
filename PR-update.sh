@@ -9,7 +9,7 @@ fi
 
 hub pull-request \
 	--message "$(git log --oneline -n 1 --format=%B | head -1)" \
-	--message "$(cat standard-PR-templates/single-commit-update.txt)" \
+	--message "$(cat .m/standard-PR-templates/single-commit-update.txt)" \
 	--browse \
 	--edit \
 	--push
