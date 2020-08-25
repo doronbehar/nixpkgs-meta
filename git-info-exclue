@@ -1,4 +1,5 @@
 outpaths.nix
+.envrc
 out-paths
 results/
 # Where this repo (nixpkgs-meta) is located
