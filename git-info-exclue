@@ -10,3 +10,5 @@ ffmpeg4-update.sh
 update-gotify.sh
 # A directory where I run `nix-shell to reproduce builds`
 .builds/
+# A list of patches I carry for my fork / clone
+myPatches.txt
