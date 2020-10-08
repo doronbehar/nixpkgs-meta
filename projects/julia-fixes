@@ -1,4 +1,0 @@
-Fix builds
-Use ./shared.nix
-Use a single file to define all versions, to cleanup all-packages.nix a bit
-Make latest point to latest
