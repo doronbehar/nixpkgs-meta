@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if git name-rev HEAD | cut -d' ' -f2 | grep -qv 'update-'; then
+if git name-rev HEAD | cut -d' ' -f2 | grep -qv 'pkg/'; then
 	tput setaf 1
 	echo $0: you are on $(git name-rev HEAD), refusing to open PR >&2
 	tput sgr0
