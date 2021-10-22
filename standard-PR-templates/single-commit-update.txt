@@ -3,16 +3,17 @@
 
 ###### Things done
 
-<!-- Please check what applies. Note that these are not hard requirements but merely serve as information for reviewers. -->
-
-- [X] Tested using sandboxing ([nix.useSandbox](http://nixos.org/nixos/manual/options.html#opt-nix.useSandbox) on NixOS, or option `sandbox` in [`nix.conf`](http://nixos.org/nix/manual/#sec-conf-file) on non-NixOS linux)
 - Built on platform(s)
-   - [X] NixOS
-   - [ ] macOS
-   - [ ] other Linux distributions
+  - [x] x86_64-linux
+  - [ ] aarch64-linux
+  - [ ] x86_64-darwin
+  - [ ] aarch64-darwin
+- [ ] For non-Linux: Is `sandbox = true` set in `nix.conf`? (See [Nix manual](https://nixos.org/manual/nix/stable/#sec-conf-file))
 - [ ] Tested via one or more NixOS test(s) if existing and applicable for the change (look inside [nixos/tests](https://github.com/NixOS/nixpkgs/blob/master/nixos/tests))
-- [ ] Tested compilation of all pkgs that depend on this change using `nix-shell -p nixpkgs-review --run "nixpkgs-review wip"`
-- [X] Tested execution of all binary files (usually in `./result/bin/`)
-- [ ] Determined the impact on package closure size (by running `nix path-info -S` before and after)
-- [X] Ensured that relevant documentation is up to date
-- [X] Fits [CONTRIBUTING.md](https://github.com/NixOS/nixpkgs/blob/master/.github/CONTRIBUTING.md).
+- [x] Tested compilation of all packages that depend on this change using `nix-shell -p nixpkgs-review --run "nixpkgs-review wip"`
+- [x] Tested execution of all binary files (usually in `./result/bin/`)
+- [21.11 Release Notes (or backporting 21.05 Release notes)](https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md#generating-2111-release-notes)
+  - [ ] (Package updates) Added a release notes entry if the change is major or breaking
+  - [ ] (Module updates) Added a release notes entry if the change is significant
+  - [ ] (Module addition) Added a release notes entry if adding a new NixOS module
+- [x] Fits [CONTRIBUTING.md](https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md).
