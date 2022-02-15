@@ -7,9 +7,9 @@ if git name-rev HEAD | cut -d' ' -f2 | grep -qv 'pkg/'; then
 	exit 1
 fi
 
-hub pull-request \
-	--message "$(git log --oneline -n 1 --format=%B | head -1)" \
-	--message "$(cat .m/standard-PR-templates/single-commit-update.txt)" \
-	--browse \
-	--edit \
-	--push
+git push -u doronbehar
+
+gh pr create \
+	--title "$(git log --oneline -n 1 --format=%B | head -1)" \
+	--body-file .m/standard-PR-templates/single-commit-update.txt \
+	--web \
