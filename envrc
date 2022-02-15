@@ -1,1 +1,1 @@
-export NIX_PATH=nixpkgs=$PWD:nixos-config=/etc/nixos/configuration.nix:nixpkgs-overlays=$HOME/.config/nixpkgs/overlays
+export NIX_PATH=nixpkgs=$PWD:nixpkgs-overlays=$HOME/.config/nixpkgs/overlays
