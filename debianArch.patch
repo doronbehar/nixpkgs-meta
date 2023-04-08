@@ -1,0 +1,36 @@
+commit 9603ca1b17ed09cb009bbfbc2661d0e1837f9f46
+Author: Doron Behar <doron.behar@gmail.com>
+Date:   Mon Apr 3 07:07:52 2023 +0300
+
+    lib/systems: Add debianArch attribute
+
+diff --git a/lib/systems/default.nix b/lib/systems/default.nix
+index 7e6fa5ecfb4..a8c8d675df5 100644
+--- a/lib/systems/default.nix
++++ b/lib/systems/default.nix
+@@ -138,6 +138,25 @@ rec {
+         else if final.isS390 then "s390"
+         else final.parsed.cpu.name;
+ 
++      # To match against architectures listed here:
++      # https://www.debian.org/ports/
++      debianArch =
++        if final.isAarch32 then "armhf"
++        else if final.isAarch64 then "arm64"
++        else if final.isx86_32 then "i386"
++        else if final.isx86_64 then "amd64"
++        else if final.isMips32 then "mipsel"
++        else if final.isMips64 then "mips64el"
++        else if final.isPower then
++          if final.parsed.cpu.bits == 32 then
++            "powerpc"
++          else "ppc64el"
++        else if final.isS390 then "s390x"
++        else if final.isAvr  then "AVR32"
++        else if final.isRiscV then "riscv64"
++        else if final.isNetBSD then "netbsd-i386"
++        else final.parsed.cpu.name;
++
+       qemuArch =
+         if final.isAarch32 then "arm"
+         else if final.isS390 && !final.isS390x then null
