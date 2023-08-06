@@ -11,4 +11,5 @@ git push -u doronbehar
 
 gh pr create \
 	--title "$(git log --oneline -n 1 --format=%B | head -1)" \
-	--body-file .m/standard-PR-templates/single-commit-update.txt
+	--body-file .m/standard-PR-templates/single-commit-update.txt \
+    "$@"
