@@ -1,0 +1,12 @@
+# To include this file, use:
+#
+# git config --local include.path ~/repos/nixpkgs/.m/gitconfig
+#
+# With the correct path of course
+[alias]
+	# This repo is so big, and we never need to look so deep into the history,
+	# if we will ever need, we can always use the unaliased `git fzf log`
+	# command
+	flog = fzf log --no-merges HEAD~100..HEAD
+
+# vim:ft=gitconfig
