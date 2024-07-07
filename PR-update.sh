@@ -10,6 +10,10 @@ fi
 git push -u doronbehar
 
 gh pr create \
-	--title "$(git log --oneline -n 1 --format=%B | head -1)" \
+	--title "$(git log -n 1 --oneline --format=%B "$(env \
+		FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
+			--header='Choose a git commit to base PR title upon'
+		" \
+		git flog)" | head -1)" \
 	--body-file .m/standard-PR-templates/single-commit-update.txt \
 	"$@"
