@@ -7,6 +7,10 @@
 	# This repo is so big, and we never need to look so deep into the history,
 	# if we will ever need, we can always use the unaliased `git fzf log`
 	# command
-	flog = fzf log --no-merges HEAD~100..HEAD
+	flog = "!f() {\
+		br=\"${1:-HEAD}\"; \
+		shift; \
+		git fzf log --no-merges \"$br~100..$br\" $@; \
+	}; f"
 
 # vim:ft=gitconfig
