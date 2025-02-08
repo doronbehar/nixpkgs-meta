@@ -7,6 +7,38 @@ if git name-rev HEAD | cut -d' ' -f2 | grep -qvE '(pkg|nixos|doc)/'; then
 	exit 1
 fi
 
+feature_branch="$(git rev-parse --abbrev-ref HEAD)"
+# Arbitrarily large number
+_best_distance=999999999
+
+# Check a list of possible parent branches
+for parent in \
+    $(git br | grep release | sort | head -1) \
+    $(git br | grep staging | sort | head -1) \
+    $(git br | grep staging-next | sort | head -1) \
+    staging-next \
+    staging \
+    master; do
+    if git show-ref --verify --quiet "refs/heads/$parent"; then
+        ancestor=$(git merge-base "$feature_branch" "$parent")
+        distance=$(git rev-list --count "$ancestor..$feature_branch")
+
+        if [ "$distance" -lt "$_best_distance" ]; then
+            _best_distance=$distance
+            best_parent=$parent
+        fi
+    fi
+done
+
+if [ -n "$best_parent" ] && [ "$_best_distance" -lt 1000 ]; then
+    echo "Best guess for parent branch: $best_parent"
+else
+    # TODO: Maybe don't exit if --base was used in "$@"?
+    echo "No suitable parent branch found."
+    exit 2
+fi
+
+
 git push -u doronbehar
 
 gh pr create \
@@ -16,4 +48,5 @@ gh pr create \
 		" \
 		git flog)" | head -1)" \
 	--body-file .m/standard-PR-templates/single-commit-update.txt \
+    --base "$best_parent" \
 	"$@"
