@@ -13,9 +13,9 @@ _best_distance=999999999
 
 # Check a list of possible parent branches
 for parent in \
-    $(git br | grep release | sort | head -1) \
-    $(git br | grep staging | sort | head -1) \
-    $(git br | grep staging-next | sort | head -1) \
+    $(git br | grep 'release-[0-9]' | sort | head -1) \
+    $(git br | grep 'staging-[0-9]' | sort | head -1) \
+    $(git br | grep 'staging-next-[0-9]' | sort | head -1) \
     staging-next \
     staging \
     master; do
