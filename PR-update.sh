@@ -18,6 +18,7 @@ for parent in \
     $(git br | grep 'staging-next-[0-9]' | sort | head -1) \
     staging-next \
     staging \
+    staging-nixos \
     master; do
     if git show-ref --verify --quiet "refs/heads/$parent"; then
         ancestor=$(git merge-base "$feature_branch" "$parent")
