@@ -16,6 +16,7 @@ for parent in \
     $(git br | grep 'release-[0-9]' | sort | head -1) \
     $(git br | grep 'staging-[0-9]' | sort | head -1) \
     $(git br | grep 'staging-next-[0-9]' | sort | head -1) \
+    python-updates \
     staging-next \
     staging \
     staging-nixos \
