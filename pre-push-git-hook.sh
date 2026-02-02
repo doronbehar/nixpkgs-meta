@@ -7,12 +7,8 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
         continue
     fi
-
-    # Extract branch name from ref
-    branch_name="${remote_ref#refs/heads/}"
-
     # Get PR information in a single API call
-    pr_info=$(gh pr view "$branch_name" --json number,title,baseRefName 2>/dev/null || echo "")
+    pr_info=$(gh pr view --json state,number,title,baseRefName)
 
     if [ -z "$pr_info" ]; then
         # No PR exists for this branch, skip
