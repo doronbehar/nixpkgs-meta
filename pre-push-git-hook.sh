@@ -11,7 +11,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     pr_info=$(gh pr view --json state,number,title,baseRefName)
 
     if [ -z "$pr_info" ]; then
-        # No PR exists for this branch, skip
+        echo "WARNING(.git/hooks/pre-push): gh pr view returned empty string - we skip checking PR title etc."
         continue
     fi
 
@@ -23,6 +23,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
 
     # Skip if PR is not open
     if [ "$pr_state" != "OPEN" ]; then
+        echo "WARNING(.git/hooks/pre-push): gh pr view found the PR state is '$pr_state', so we skip checking PR title etc."
         continue
     fi
 
