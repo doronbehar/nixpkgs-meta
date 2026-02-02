@@ -13,3 +13,6 @@ update-tectonic.sh
 .builds/
 # A list of patches I carry for my fork / clone
 myPatches.txt
+# Avoid a situation as described here:
+# https://github.com/NixOS/nixpkgs/pull/444217#issuecomment-3837185216
+!*.lock
