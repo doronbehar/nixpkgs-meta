@@ -7,6 +7,9 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
         continue
     fi
+    if git branch --show-current | grep -q -E '(channel/|WIP/)'; then
+      continue
+    fi
     # Get PR information in a single API call
     pr_info=$(gh pr view --json state,number,title,baseRefName)
 
