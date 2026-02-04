@@ -10,7 +10,11 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     if git branch --show-current | grep -q -E '(channel/|WIP/)'; then
       continue
     fi
-    # Get PR information in a single API call
+
+    # If there's remote branch set to track this one, then abort
+    if [ "$(git config branch."$(git branch --show-current)".remote)" = "" ]; then
+      continue
+    fi
     pr_info=$(gh pr view --json state,number,title,baseRefName)
 
     if [ -z "$pr_info" ]; then
