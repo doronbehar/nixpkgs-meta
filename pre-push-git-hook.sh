@@ -15,6 +15,9 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     if [ "$(git config branch."$(git branch --show-current)".remote)" = "" ]; then
       continue
     fi
+    if [ ! -z "${NIXPKGS_SKIP_GH_PR_CHECK:+}" ]; then
+      continue
+    fi
     pr_info=$(gh pr view --json state,number,title,baseRefName)
 
     if [ -z "$pr_info" ]; then
