@@ -12,13 +12,12 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     fi
 
     # If there's remote branch set to track this one, then abort
-    if [ "$(git config branch."$(git branch --show-current)".remote)" = "" ]; then
+    remote_branch="$(echo "$remote_ref" | cut -d/ -f3-)"
+    if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+      # Meaning, there is no remote branch, so do no title check.
       continue
     fi
-    if [ ! -z "${NIXPKGS_SKIP_GH_PR_CHECK:+}" ]; then
-      continue
-    fi
-    pr_info=$(gh pr view --json state,number,title,baseRefName)
+    pr_info=$(gh pr view doronbehar:"$remote_branch" --json state,number,title,baseRefName)
 
     if [ -z "$pr_info" ]; then
         echo "WARNING(.git/hooks/pre-push): gh pr view returned empty string - we skip checking PR title etc."
