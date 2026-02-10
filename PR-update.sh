@@ -68,7 +68,8 @@ pr_body="$(replace_literal \
 )"
 pr_body="$(replace_literal "$pr_body" "[ ] Fits [CONTRIBUTING.md]" "[x] Fits [CONTRIBUTING.md]")"
 
-git push -u doronbehar
+# The last argument mainly is needed due to the `push.default` line in ./gitconfig
+git push -u doronbehar "$(git branch --show-current)"
 
 gh pr create \
     --title "$(git log -n 1 --oneline --format=%B "$(env \

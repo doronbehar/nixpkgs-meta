@@ -16,5 +16,11 @@
 		shift; \
 		git fzf log --no-merges \"$br~100..$br\" $@; \
 	}; f"
+# Allow to work with intentionall mismatched branch names. A common example is
+# a draft/ prefixed branch name which helps me remember it is currently in
+# draft upstream, but the branch name exposed to others in the PR is
+# intentionally not draft/ prefixed.
+[push]
+	default = upstream
 
 # vim:ft=gitconfig
