@@ -66,14 +66,25 @@ replace_literal() {
     printf '%s\n' "$result"
 }
 
+# Requires gum https://github.com/charmbracelet/gum (packaged in Nixpkgs)
+selections_tmpfile="$(mktemp --tmpdir nixpkgs-pr-selection.XXXX.md)"
 pr_body="$(cat .github/PULL_REQUEST_TEMPLATE.md)"
-pr_body="$(replace_literal "$pr_body" "[ ] x86_64-linux" "[x] x86_64-linux")"
-pr_body="$(replace_literal \
-  "$pr_body" \
-  "[ ] Tested basic functionality of all binary files" \
-  "[x] Tested basic functionality of all binary files" \
-)"
-pr_body="$(replace_literal "$pr_body" "[ ] Fits [CONTRIBUTING.md]" "[x] Fits [CONTRIBUTING.md]")"
+echo "$pr_body" | grep -E -- '^(\s*)- ' \
+  | gum choose \
+    --no-show-help \
+    --no-limit \
+    --height=40 \
+    --selected='  - [ ] x86_64-linux' \
+    --selected='- [ ] Tested basic functionality of all binary files\, usually in `./result/bin/`.' \
+    --selected='- [ ] Fits [CONTRIBUTING.md]\, [pkgs/README.md]\, [maintainers/README.md] and other READMEs.' \
+  > "$selections_tmpfile"
+while read -r selection; do
+  pr_body="$(replace_literal "$pr_body" \
+    "$selection" \
+    "$(replace_literal "$selection" "- [ ]" "- [x]")" \
+  )"
+done < "$selections_tmpfile"
+rm "$selections_tmpfile"
 
 # The last argument mainly is needed due to the `push.default` line in ./gitconfig
 git push -u doronbehar "$(git branch --show-current)"
