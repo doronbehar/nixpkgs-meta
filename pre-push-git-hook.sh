@@ -17,7 +17,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
       # Meaning, there is no remote branch, so do no title check.
       continue
     fi
-    pr_info=$(gh pr view doronbehar:"$remote_branch" --json state,number,title,baseRefName)
+    pr_info=$(gh pr view doronbehar:"$remote_branch" --json state,number,title,baseRefName || echo "")
 
     if [ -z "$pr_info" ]; then
         echo "WARNING(.git/hooks/pre-push): gh pr view returned empty string - we skip checking PR title etc."
