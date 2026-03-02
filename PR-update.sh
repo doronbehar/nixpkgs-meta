@@ -46,7 +46,9 @@ replace_literal() {
     search="$2"
     replace="$3"
     result=""
+    found=false
     while case "$string" in *"$search"*) true;; *) false;; esac; do
+        found=true
         # Get prefix before first match
         prefix="${string%%"$search"*}"
         # Append prefix and replacement to result
@@ -56,6 +58,11 @@ replace_literal() {
     done
     # Append remaining string
     result="$result$string"
+    if ! $found; then
+        printf 'replace_literal: pattern not found: %s\n' "$search" >&2
+        printf 'replace_literal: input string is:\n%s\n' "$string" >&2
+        return 1
+    fi
     printf '%s\n' "$result"
 }
 
