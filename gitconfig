@@ -22,5 +22,7 @@
 # intentionally not draft/ prefixed.
 [push]
 	default = upstream
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
 
 # vim:ft=gitconfig
