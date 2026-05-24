@@ -76,6 +76,7 @@ echo "$pr_body" | grep -E -- '^(\s*)- ' \
     --height=40 \
     --selected='  - [ ] x86_64-linux' \
     --selected='- [ ] Tested basic functionality of all binary files\, usually in `./result/bin/`.' \
+    --selected='- [ ] Follows the [automation/AI policy].' \
     --selected='- [ ] Fits [CONTRIBUTING.md]\, [pkgs/README.md]\, [maintainers/README.md] and other READMEs.' \
   > "$selections_tmpfile"
 while read -r selection; do
