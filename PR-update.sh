@@ -1,13 +1,27 @@
 #!/bin/sh
 
-if git name-rev HEAD | cut -d' ' -f2 | grep -qvE '(pkg|nixos|doc)/'; then
+# If a branch name is passed as the first argument, use it; otherwise detect current branch.
+# We consume it from "$@" so the remainder can be forwarded to `gh pr create`.
+if [ $# -gt 0 ] && git show-ref --verify --quiet "refs/heads/$1"; then
+    feature_branch="$1"
+    shift
+else
+    feature_branch="$(git branch --show-current)"
+    if [ -z "$feature_branch" ]; then
+        tput setaf 1
+        echo "$0: not on any branch (detached HEAD), refusing to open PR" >&2
+        tput sgr0
+        exit 1
+    fi
+fi
+
+if ! echo "$feature_branch" | grep -qE '(pkg|nixos|doc)/'; then
     tput setaf 1
-    echo "$0": you are on "$(git name-rev HEAD)", refusing to open PR >&2
+    echo "$0: branch '$feature_branch' has no standard prefix like 'pkg', 'nixos' or 'doc', refusing to open PR" >&2
     tput sgr0
     exit 1
 fi
 
-feature_branch="$(git rev-parse --abbrev-ref HEAD)"
 # Arbitrarily large number
 _best_distance=999999999
 
@@ -87,15 +101,15 @@ while read -r selection; do
 done < "$selections_tmpfile"
 rm "$selections_tmpfile"
 
-# The last argument mainly is needed due to the `push.default` line in ./gitconfig
-git push -u doronbehar "$(git branch --show-current)"
+git push -u doronbehar "$feature_branch"
 
 gh pr create \
     --title "$(git log -n 1 --oneline --format=%B "$(env \
         FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
             --header='Choose a git commit to base PR title upon'
         " \
-        git flog)" | head -1)" \
+        git flog "$feature_branch")" | head -1)" \
     --body "$pr_body" \
     --base "$best_parent" \
+    --head "doronbehar:$feature_branch" \
     "$@"
