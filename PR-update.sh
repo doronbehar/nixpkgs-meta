@@ -2,17 +2,22 @@
 
 # If a branch name is passed as the first argument, use it; otherwise detect current branch.
 # We consume it from "$@" so the remainder can be forwarded to `gh pr create`.
-if [ $# -gt 0 ] && git show-ref --verify --quiet "refs/heads/$1"; then
-    feature_branch="$1"
-    shift
+if [ $# -gt 0 ]; then
+    if git show-ref --verify --quiet "refs/heads/$1"; then
+        feature_branch="$1"
+        shift
+    else
+        echo "Did not find a branch named '$1', assuming feature branch is current branch"
+        feature_branch="$(git branch --show-current)"
+    fi
 else
     feature_branch="$(git branch --show-current)"
-    if [ -z "$feature_branch" ]; then
-        tput setaf 1
-        echo "$0: not on any branch (detached HEAD), refusing to open PR" >&2
-        tput sgr0
-        exit 1
-    fi
+fi
+if [ -z "$feature_branch" ]; then
+    tput setaf 1
+    echo "$0: not on any branch (detached HEAD), refusing to open PR" >&2
+    tput sgr0
+    exit 1
 fi
 
 if ! echo "$feature_branch" | grep -qE '(pkg|nixos|doc)/'; then
