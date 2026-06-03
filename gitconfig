@@ -7,15 +7,6 @@
 	# https://stackoverflow.com/a/41611648/4935114 - useful for this repository
 	# in particular, as branches are deleted remotely regularly etc.
 	prune = true
-[alias]
-	# This repo is so big, and we never need to look so deep into the history,
-	# if we will ever need, we can always use the unaliased `git fzf log`
-	# command
-	flog = "!f() {\
-		br=\"${1:-HEAD}\"; \
-		shift; \
-		git fzf log --no-merges \"$br~100..$br\" $@; \
-	}; f"
 # Allow to work with intentionall mismatched branch names. A common example is
 # a draft/ prefixed branch name which helps me remember it is currently in
 # draft upstream, but the branch name exposed to others in the PR is
