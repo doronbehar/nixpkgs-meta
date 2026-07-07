@@ -105,15 +105,20 @@ while read -r selection; do
   )"
 done < "$selections_tmpfile"
 rm "$selections_tmpfile"
+title="$(\
+  git log -n 1 --oneline --format=%B "$(\
+    env FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
+      --header='Choose a git commit to base PR title upon'
+    " \
+      git flog "$feature_branch" \
+    )" \
+  | head -1 \
+)"
 
 git push -u doronbehar "$feature_branch"
 
 gh pr create \
-    --title "$(git log -n 1 --oneline --format=%B "$(env \
-        FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
-            --header='Choose a git commit to base PR title upon'
-        " \
-        git flog "$feature_branch")" | head -1)" \
+    --title "$title" \
     --body "$pr_body" \
     --base "$best_parent" \
     --head "doronbehar:$feature_branch" \
