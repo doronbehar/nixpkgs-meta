@@ -111,6 +111,7 @@ title="$(\
       --header='Choose a git commit to base PR title upon'
     " \
       git flog "$feature_branch" \
+      -100 \
     )" \
   | head -1 \
 )"
