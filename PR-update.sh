@@ -32,9 +32,9 @@ _best_distance=999999999
 
 # Check a list of possible parent branches
 for parent in \
-    $(git br | grep 'release-[0-9]' | sort | head -1) \
-    $(git br | grep 'staging-[0-9]' | sort | head -1) \
-    $(git br | grep 'staging-next-[0-9]' | sort | head -1) \
+    $(git br | grep 'release-[0-9]' | sort -V | tail -1) \
+    $(git br | grep 'staging-[0-9]' | sort -V | tail -1) \
+    $(git br | grep 'staging-next-[0-9]' | sort -V | tail -1) \
     python-updates \
     staging-next \
     staging \
