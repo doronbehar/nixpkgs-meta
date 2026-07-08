@@ -1,10 +1,10 @@
 outpaths.nix
-.envrc
 out-paths
 results/
 # Where this repo (nixpkgs-meta) is located
 .m/
 # A symlink from here
+.envrc
 PR-update.sh
 ffmpeg4-update.sh
 update-gotify.sh
