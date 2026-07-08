@@ -6,6 +6,7 @@ results/
 # A symlink from here
 .envrc
 PR-update.sh
+get-PRs.sh
 ffmpeg4-update.sh
 update-gotify.sh
 update-tectonic.sh
