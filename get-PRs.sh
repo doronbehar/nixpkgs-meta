@@ -2,11 +2,6 @@
 
 set -euo pipefail
 
-if [ ! -x "$GET_PRS_PYTHON" ]; then
-  echo "Environment variable \`GET_PRS_PYTHON\` is not set, can't print table.." >&2
-  exit 3
-fi
-
 if [ "$#" -eq 0 ]; then
   echo "usage: $0 <attr> <other> <gh pr list> <arguments>..." >&2
   exit 1
@@ -15,11 +10,24 @@ fi
 attr="$1"
 shift
 
+echo "Getting Python environment..."
+python="$( \
+  nix build \
+    --no-link \
+    --print-out-paths \
+    --impure --expr '
+    with import <nixpkgs> {};
+    python3.withPackages(ps: [
+      ps.tabulate
+    ])
+  ' \
+)/bin/python3"
+
 gh pr list \
   --search "$attr in:title" \
   --limit 1000 \
   --json title,url,labels,state \
-  "$@" | "$GET_PRS_PYTHON" -c '
+  "$@" | "$python" -c '
 import json
 import sys
 from tabulate import tabulate
