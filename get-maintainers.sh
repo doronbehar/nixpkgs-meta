@@ -1,19 +1,13 @@
 #!/usr/bin/env bash
 
-# Example usage:
-# ./get-maintainers.sh package1 package2 package3
-# or from stdin:
-# cat packages.txt | ./get-maintainers.sh
-# echo -e "hello\ngit\nvim" | ./get-maintainers.sh
-
-# Read packages from arguments or stdin
-if [ $# -gt 0 ]; then
-  # Packages provided as arguments
-  packages=("$@")
-else
-  # Read packages from stdin
-  mapfile -t packages
+if [ $# == 1 ]; then
+  nixpkgs="$(realpath "$1")"
+elif [ $# == 0 ]; then
+  nixpkgs="$PWD"
 fi
+>&2 echo "Using nixpkgs=$nixpkgs"
+# Read packages from stdin
+mapfile -t packages
 
 # Build Nix array string
 nix_array=""
@@ -25,7 +19,7 @@ done
 
 nix eval --impure --expr '
 let
-  pkgs = import <nixpkgs> {};
+  pkgs = import "'"$nixpkgs"'" {};
 
   getGithubHandle = maintainer:
     if maintainer ? github then
